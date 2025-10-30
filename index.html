@@ -1,113 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FocusFire - Productivity Timer</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FocusFire — Productivity Timer</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="app-container">
-        <header class="app-header">
-            <h1>🔥 FocusFire</h1>
-            <div class="streak-counter">
-                <span class="streak-icon">🔥</span>
-                <span id="streak-count">0</span> day streak
-            </div>
-        </header>
+  <header>
+    <h1>🔥 FocusFire</h1>
+    <p>Stay productive, block distractions, and relax with ambient sounds.</p>
+  </header>
 
-        <div class="main-content">
-            <section class="timer-section">
-                <div class="timer-display">
-                    <div class="timer-circle">
-                        <div class="timer-progress">
-                            <span id="timer-display">25:00</span>
-                        </div>
-                    </div>
-                    <div class="timer-controls">
-                        <button id="start-btn" class="btn btn-primary">Start Focus</button>
-                        <button id="pause-btn" class="btn btn-secondary" disabled>Pause</button>
-                        <button id="reset-btn" class="btn btn-secondary">Reset</button>
-                    </div>
-                </div>
-
-                <div class="session-selector">
-                    <button class="session-btn active" data-minutes="25">Focus (25m)</button>
-                    <button class="session-btn" data-minutes="5">Break (5m)</button>
-                    <button class="session-btn" data-minutes="15">Long Break (15m)</button>
-                </div>
-            </section>
-
-            <section class="features-panel">
-        
-                <div class="feature-card">
-                    <h3>🛡️ Website Blocker</h3>
-                    <div class="blocker-controls">
-                        <input type="text" id="site-input" placeholder="Enter website to block">
-                        <button id="add-site" class="btn btn-danger">Block Site</button>
-                    </div>
-                    <div id="blocked-sites" class="blocked-list"></div>
-                </div>
-
-                <div class="feature-card">
-                    <h3>🎵 Focus Sounds</h3>
-                    <div class="sound-grid">
-                        <button class="sound-btn" data-sound="rain">🌧️ Rain</button>
-                        <button class="sound-btn" data-sound="fire">🔥 Fireplace</button>
-                        <button class="sound-btn" data-sound="coffee">☕ Coffee Shop</button>
-                        <button class="sound-btn" data-sound="white">⚪ White Noise</button>
-                    </div>
-                    <div class="volume-control">
-                        <label>Volume:</label>
-                        <input type="range" id="volume" min="0" max="100" value="50">
-                    </div>
-                </div>
-
-                <div class="feature-card emergency-section">
-                    <h3>🚨 Emergency Break</h3>
-                    <p>Need immediate access? Take a 5-minute break</p>
-                    <button id="emergency-btn" class="btn btn-warning">Emergency Break</button>
-                    <div id="emergency-timer" class="emergency-timer hidden">
-                        <span id="emergency-time">5:00</span> until focus resumes
-                    </div>
-                </div>
-            </section>
+  <main class="main-content">
+    <section class="timer-section">
+      <div class="timer">
+        <h2 id="timer-display">25:00</h2>
+        <div class="timer-controls">
+          <button id="start-btn" class="btn">Start</button>
+          <button id="pause-btn" class="btn">Pause</button>
+          <button id="reset-btn" class="btn">Reset</button>
         </div>
+      </div>
 
-        <section class="stats-section">
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <span class="stat-number" id="sessions-today">0</span>
-                    <span class="stat-label">Sessions Today</span>
-                </div>
-                <div class="stat-card">
-                    <span class="stat-number" id="total-focus">0</span>
-                    <span class="stat-label">Total Focus Minutes</span>
-                </div>
-                <div class="stat-card">
-                    <span class="stat-number" id="emergencies-used">0</span>
-                    <span class="stat-label">Emergencies Used</span>
-                </div>
-            </div>
-        </section>
-    </div>
+      <div class="sound-controls">
+        <h3>Ambient Sounds</h3>
+        <div class="sound-buttons">
+          <button class="sound-btn" data-sound="rain">🌧️ Rain</button>
+          <button class="sound-btn" data-sound="forest">🌲 Forest</button>
+          <button class="sound-btn" data-sound="fire">🔥 Fire</button>
+        </div>
+      </div>
+    </section>
 
-<audio id="rain-sound" loop preload="auto">
-    <source src="https://assets.mixkit.co/sfx/preview/mixkit-rain-against-window-239.mp3" type="audio/mpeg">
-</audio>
-<audio id="ocean" loop preload="auto">
+    <section class="blocker-section">
+      <h3>Site Blocker</h3>
+      <input type="text" id="block-input" placeholder="Enter site (e.g., youtube.com)">
+      <button id="add-block-btn" class="btn">Add</button>
+      <ul id="blocked-list"></ul>
+    </section>
+  </main>
+
+  <audio id="rain-sound" loop preload="auto">
+    <source src="https://assets.mixkit.co/sfx/preview/mixkit-light-rain-loop-2390.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="forest-sound" loop preload="auto">
+    <source src="https://assets.mixkit.co/sfx/preview/mixkit-birds-in-forest-loop-1223.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="fire-sound" loop preload="auto">
     <source src="https://assets.mixkit.co/sfx/preview/mixkit-crackling-fireplace-1330.mp3" type="audio/mpeg">
-</audio>
-<audio id="coffee-sound" loop preload="auto">
-    <source src="https://assets.mixkit.co/sfx/preview/mixkit-busy-coffee-shop-1231.mp3" type="audio/mpeg">
-</audio>
-<audio id="white-sound" loop preload="auto">
-    <source src="https://assets.mixkit.co/sfx/preview/mixkit-wind-in-the-trees-1244.mp3" type="audio/mpeg">
-</audio>
-<audio id="completion-sound" preload="auto">
-    <source src="https://assets.mixkit.co/sfx/preview/mixkit-alarm-digital-clock-beep-989.mp3" type="audio/mpeg">
-</audio>
+  </audio>
 
-    <script src="script.js"></script>
+  <script src="script.js" defer></script>
 </body>
 </html>
